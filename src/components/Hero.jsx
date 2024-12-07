@@ -9,7 +9,7 @@ import gsap from 'gsap';
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState( 1);
   const [hasClicked, setHasClicked] = useState(false)
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [loadedVideos, setLoadedVideos] = useState(0)
 
   const totalVideos = 3 ;
@@ -31,7 +31,7 @@ const Hero = () => {
 
       gsap.to('#next-video', {
         transformOrigin : 'center center',
-        scale : 1, 
+        scale : 1,
         width : '100%',
         height : '100%',
         duration : 1 ,
@@ -46,7 +46,7 @@ const Hero = () => {
         ease : 'power1.inOut'
       })
     }
-    
+
   } , {dependencies: [currentIndex] , revertOnUpdate: true})
 
   useGSAP(() => {
@@ -72,6 +72,15 @@ const Hero = () => {
 
   return (
     <div className='relative h-dvh w-screen overflow-hidden'>
+      {isLoading && (
+        <div className='absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50 flex-center'>
+          <div className='three-body'>
+            <div className='three-body__dot'/>
+            <div className='three-body__dot'/>
+            <div className='three-body__dot'/>
+          </div>
+        </div>
+      )}
         <div id='video-frame' className='relative h-dvh z-10 w-screen overflow-hidden rounded-lg bg-blue-75'>
           <div>
             <div className='mask-clip-path absolute-center absolute z-50 top-64 cursor-pointer overflow-hidden rounded-lg'>
@@ -97,7 +106,7 @@ const Hero = () => {
               className='absolute-center absolute z-20 invisible size-64 object-cover object-center'
               onLoadedData={handleVideoLoad}/>
 
-            <video 
+            <video
               src={getVideoSrc(currentIndex === totalVideos - 1 ? 1 : currentIndex )}
               autoPlay
               loop
