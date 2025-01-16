@@ -6,7 +6,6 @@ import { gsap } from 'gsap';
 const navItems = ['Nexus' ,'Vault', 'Prologue' , 'About' ,'Contact']
 
 const Navbar = () => {
-
     const navContainerRef = useRef(null)
 
     const audioElementRef = useRef(null)
